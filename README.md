@@ -48,23 +48,30 @@ novu-start-fresh/
 
 ## Requisitos de stack
 
-| Categoría         | Tecnología utilizada                                                                 |
-|-------------------|--------------------------------------------------------------------------------------|
-| Marcado           | HTML5 semántico (`<section>`, `<h1>`–`<h3>`, `<p>`, `<a>`, `<table>`)              |
-| Estilos           | CSS3 — custom properties, animaciones con `@keyframes`, transiciones                |
-| Scripting         | JavaScript vanilla (ES6) — exclusivamente para la variable `clickTag`               |
-| Tipografía        | Inter (Google Fonts, carga progresiva) + stack de fuentes de fallback               |
-| Assets gráficos   | PNGs desde `shared/assets/` + SVGs inline para íconos decorativos                  |
-| Control de versiones | Git                                                                               |
-| Herramientas de build | Ninguna — cero dependencias, cero paso de compilación                          |
-| Opcional (futuro) | GSAP/GreenSock para animaciones más complejas; MJML para el email                   |
+| Categoría             | Tecnología utilizada                                                  |
+| --------------------- | --------------------------------------------------------------------- |
+| Marcado               | HTML5 semántico (`<section>`, `<h1>`–`<h3>`, `<p>`, `<a>`, `<table>`) |
+| Estilos               | CSS3 — custom properties, animaciones con `@keyframes`, transiciones  |
+| Scripting             | JavaScript vanilla (ES6) — exclusivamente para la variable `clickTag` |
+| Tipografía            | Inter (Google Fonts, carga progresiva) + stack de fuentes de fallback |
+| Assets gráficos       | PNGs desde `shared/assets/` + SVGs inline para íconos decorativos     |
+| Control de versiones  | Git                                                                   |
+| Herramientas de build | Ninguna — cero dependencias, cero paso de compilación                 |
+| Opcional (futuro)     | GSAP/GreenSock para animaciones más complejas; MJML para el email     |
 
 ### Stack de fuentes de fallback
 
 Google Fonts se carga como **mejora progresiva**. Si la solicitud es bloqueada (sandbox de ad server, entorno sin conexión), el siguiente stack garantiza legibilidad:
 
 ```css
-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+font-family:
+  "Inter",
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Helvetica,
+  Arial,
+  sans-serif;
 ```
 
 ---
@@ -113,7 +120,7 @@ Para simular el comportamiento de un ad server en local, abrir la consola del na
 
 ```js
 // Simula la inyección del ad server
-var clickTag = 'https://novuapp.com';
+var clickTag = "https://novuapp.com";
 ```
 
 El handler de click valida la variable en tiempo de ejecución:
@@ -148,12 +155,12 @@ Las imágenes PNG se resuelven correctamente con el servidor activo.
 
 Para verificar renderizado en Gmail, Outlook y clientes móviles, se recomienda alguna de las siguientes herramientas:
 
-| Herramienta | Plan gratuito | URL |
-|-------------|---------------|-----|
-| **Parcel.io** | Sí (limitado) | https://useparcel.com |
-| **Litmus** | Prueba gratuita | https://litmus.com |
+| Herramienta       | Plan gratuito   | URL                         |
+| ----------------- | --------------- | --------------------------- |
+| **Parcel.io**     | Sí (limitado)   | https://useparcel.com       |
+| **Litmus**        | Prueba gratuita | https://litmus.com          |
 | **Email on Acid** | Prueba gratuita | https://www.emailonacid.com |
-| **Mailtrap** | Sí | https://mailtrap.io |
+| **Mailtrap**      | Sí              | https://mailtrap.io         |
 
 #### Instrucciones para Parcel.io (gratuito):
 
@@ -210,11 +217,11 @@ https://<usuario>.github.io/<repositorio>/email/
 
 ### Formatos IAB entregados
 
-| Formato           | Dimensiones   |
-|-------------------|---------------|
-| Medium Rectangle  | 300 × 250 px  |
-| Leaderboard       | 728 × 90 px   |
-| Wide Skyscraper   | 160 × 600 px  |
+| Formato          | Dimensiones  |
+| ---------------- | ------------ |
+| Medium Rectangle | 300 × 250 px |
+| Leaderboard      | 728 × 90 px  |
+| Wide Skyscraper  | 160 × 600 px |
 
 ### Variable `clickTag`
 
@@ -222,7 +229,7 @@ La variable `clickTag` es la convención estándar de los principales ad servers
 
 ```js
 // Declaración en el banner (apunta a la URL de destino para QA local)
-var clickTag = 'https://novuapp.com';
+var clickTag = "https://novuapp.com";
 ```
 
 El área de click cubre todo el banner con un `<a>` absoluto (z-index: 10) y valida la variable antes de usarla:
@@ -245,11 +252,11 @@ Cada banner es un único archivo HTML. No realiza llamadas externas en tiempo de
 - Las imágenes de marca (logo y mockup) se referencian desde `../../shared/assets/` con rutas relativas.
 - Google Fonts se carga como mejora progresiva — si es bloqueado, el stack de fallback entra en acción sin afectar el layout.
 
-| Banner        | Peso del archivo |
-|---------------|------------------|
-| 300 × 250     | ~13 KB           |
-| 728 × 90      | ~13 KB           |
-| 160 × 600     | ~17 KB           |
+| Banner    | Peso del archivo |
+| --------- | ---------------- |
+| 300 × 250 | ~13 KB           |
+| 728 × 90  | ~13 KB           |
+| 160 × 600 | ~17 KB           |
 
 Todos están muy por debajo del límite de **150 KB por unidad** establecido por el estándar IAB.
 
@@ -257,11 +264,11 @@ Todos están muy por debajo del límite de **150 KB por unidad** establecido por
 
 Cada banner implementa la secuencia de tres fases requerida:
 
-| Fase | Duración | Descripción |
-|------|----------|-------------|
-| **Intro** | 0 – 1.2 s | Las formas de fondo hacen `scale` desde 0. El logo entra con `slideDown`. |
-| **Frame principal** | 1.2 – 2.5 s | Headline, subheadline e imagen del teléfono están completamente visibles. |
-| **Cierre con CTA destacado** | 2.5 s en adelante | El botón CTA ejecuta un loop de `pulse` sutil para atraer clics. |
+| Fase                         | Duración          | Descripción                                                               |
+| ---------------------------- | ----------------- | ------------------------------------------------------------------------- |
+| **Intro**                    | 0 – 1.2 s         | Las formas de fondo hacen `scale` desde 0. El logo entra con `slideDown`. |
+| **Frame principal**          | 1.2 – 2.5 s       | Headline, subheadline e imagen del teléfono están completamente visibles. |
+| **Cierre con CTA destacado** | 2.5 s en adelante | El botón CTA ejecuta un loop de `pulse` sutil para atraer clics.          |
 
 La duración total del loop no supera los **30 segundos** exigidos por el estándar IAB. La animación se implementa íntegramente en **CSS puro** (`@keyframes` + `animation-delay`), sin dependencias de JavaScript.
 
@@ -310,7 +317,13 @@ Todo el layout usa `<table>` anidadas con `role="presentation"` — no `flexbox`
 
 ```html
 <!-- Patrón base: tabla exterior 100% → contenedor 600px → filas de contenido -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<table
+  role="presentation"
+  width="100%"
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+>
   <tr>
     <td align="center">
       <table role="presentation" width="600" ...>
@@ -327,14 +340,24 @@ Outlook ignora `border-radius` en elementos `<a>`. La solución es un botón VML
 
 ```html
 <!--[if mso]>
-<v:roundrect href="https://novuapp.com" style="height:44px; width:170px;" arcsize="9%" fillcolor="#E94560">
-  <center style="color:#FFFFFF; font-family:Arial; font-size:14px; font-weight:700;">
-    Empieza gratis →
-  </center>
-</v:roundrect>
+  <v:roundrect
+    href="https://novuapp.com"
+    style="height:44px; width:170px;"
+    arcsize="9%"
+    fillcolor="#E94560"
+  >
+    <center
+      style="color:#FFFFFF; font-family:Arial; font-size:14px; font-weight:700;"
+    >
+      Empieza gratis →
+    </center>
+  </v:roundrect>
 <![endif]-->
 <!--[if !mso]><!-->
-<a href="https://novuapp.com" style="background-color:#E94560; border-radius:6px; ...">
+<a
+  href="https://novuapp.com"
+  style="background-color:#E94560; border-radius:6px; ..."
+>
   Empieza gratis →
 </a>
 <!--<![endif]-->
@@ -350,11 +373,11 @@ Todos los estilos críticos de layout y tipografía están declarados como atrib
 
 ### Responsividad (320 px – 600 px)
 
-| Breakpoint | Comportamiento |
-|------------|----------------|
-| ≥ 600 px | Layout desktop completo: hero de dos columnas, features en tres columnas |
-| < 600 px | Hero colapsa a una columna (texto arriba, imagen abajo). Features se apilan verticalmente. |
-| ≤ 374 px | Headline escala de `38px` a `32px`. Imagen del teléfono se reduce a `180px` de ancho máximo. |
+| Breakpoint | Comportamiento                                                                               |
+| ---------- | -------------------------------------------------------------------------------------------- |
+| ≥ 600 px   | Layout desktop completo: hero de dos columnas, features en tres columnas                     |
+| < 600 px   | Hero colapsa a una columna (texto arriba, imagen abajo). Features se apilan verticalmente.   |
+| ≤ 374 px   | Headline escala de `38px` a `32px`. Imagen del teléfono se reduce a `180px` de ancho máximo. |
 
 Las columnas colapsan usando `display: block !important; width: 100% !important;` en las clases `.hero-text-cell`, `.hero-image-cell` y `.feature-cell` bajo el `@media`.
 
@@ -397,25 +420,25 @@ El primer `<div>` invisible del `<body>` contiene el texto que los clientes de c
 
 Aplicada de manera consistente en los tres banners y en el email:
 
-| Token             | Valor                                          |
-|-------------------|------------------------------------------------|
-| Color primario    | `#1A1A2E`                                      |
-| Color acento      | `#E94560`                                      |
-| Color acento hover| `#c73652` (~15% más oscuro)                    |
-| Color de fondo    | `#F5F5F0`                                      |
-| Tipografía        | Inter (Google Fonts) + stack de fallback       |
-| Headline          | "Start Fresh."                                 |
-| Subheadline       | "Tu mejor año comienza hoy."                   |
-| CTA               | "Empieza gratis"                               |
-| URL destino       | https://novuapp.com *(ficticia)*               |
+| Token              | Valor                                    |
+| ------------------ | ---------------------------------------- |
+| Color primario     | `#1A1A2E`                                |
+| Color acento       | `#E94560`                                |
+| Color acento hover | `#c73652` (~15% más oscuro)              |
+| Color de fondo     | `#F5F5F0`                                |
+| Tipografía         | Inter (Google Fonts) + stack de fallback |
+| Headline           | "Start Fresh."                           |
+| Subheadline        | "Tu mejor año comienza hoy."             |
+| CTA                | "Empieza gratis"                         |
+| URL destino        | https://novuapp.com _(ficticia)_         |
 
 ---
 
 ## Assets
 
-| Archivo                        | Uso                                      | Ruta                              |
-|--------------------------------|------------------------------------------|-----------------------------------|
-| `novu-logo.png`                | Logo de marca en header y hero           | `shared/assets/novu-logo.png`     |
-| `mockup-mobile.png`            | Imagen de la app en banners y email hero | `shared/assets/mockup-mobile.png` |
+| Archivo             | Uso                                      | Ruta                              |
+| ------------------- | ---------------------------------------- | --------------------------------- |
+| `novu-logo.png`     | Logo de marca en header y hero           | `shared/assets/novu-logo.png`     |
+| `mockup-mobile.png` | Imagen de la app en banners y email hero | `shared/assets/mockup-mobile.png` |
 
-Las rutas relativas desde cada banner (`../../shared/assets/`) y desde el email (`../../shared/assets/`) son consistentes con la estructura de carpetas del repositorio. Al servir el proyecto localmente o desde GitHub Pages, los assets se resuelven correctamente sin modificaciones.
+Las rutas relativas desde cada banner (`../../shared/assets/`) y desde el email (`../../shared/assets/`) son consistentes con la estructura de las carpetas del repositorio. Al servir el proyecto localmente o desde GitHub Pages, los assets se resuelven correctamente sin modificaciones.
