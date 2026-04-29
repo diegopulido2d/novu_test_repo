@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="ad.size" content="width=160,height=600" />
+    <title>Novu – Start Fresh | 160×600</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --color-primary: #1a1a2e;
+        --color-accent: #e94560;
+        --color-accent-dark: #c73652;
+        --color-bg: #f5f5f0;
+        --color-white: #ffffff;
+        --font-primary:
+          "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+        --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      html,
+      body {
+        width: 160px;
+        height: 600px;
+        overflow: hidden;
+        background: var(--color-bg);
+      }
+
+      .banner {
+        position: relative; /* ← containing block for all abs children */
+        width: 160px;
+        height: 600px;
+        overflow: hidden;
+        background: var(--color-bg);
+        font-family: var(--font-primary);
+        outline: 1px solid #d8d8d0;
+        cursor: pointer;
+      }
+
+      .click-area {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        text-decoration: none;
+      }
+
+      .hero-block {
+        position: absolute; /* resolved against .banner */
+        top: 0;
+        left: 0;
+        width: 160px;
+        height: 0; /* animated to 250px */
+        background: var(--color-primary);
+        animation: heroExpand 0.6s var(--ease-out-expo) 0.1s forwards;
+        z-index: 1;
+        /* overflow:visible so the phone-wrap can bleed out of this block */
+        overflow: visible;
+      }
+
+      @keyframes heroExpand {
+        from {
+          height: 0;
+        }
+        to {
+          height: 250px;
+        }
+      }
+
+      .hero-circle {
+        position: absolute; /* resolved against .banner */
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        right: -40px;
+        top: 80px;
+        opacity: 0;
+        transform: scale(0.5);
+        animation: circleReveal 0.7s var(--ease-out-expo) 0.5s forwards;
+        z-index: 2;
+      }
+
+      @keyframes circleReveal {
+        to {
+          opacity: 0.9;
+          transform: scale(1);
+        }
+      }
+
+      .logo {
+        position: absolute; /* resolved against .banner */
+        top: 20px;
+        left: 10px;
+        z-index: 3;
+        opacity: 0;
+        animation: fadeInUp 0.45s var(--ease-out-expo) 0.65s forwards;
+      }
+
+      .logo__img {
+        display: block;
+        height: 50px;
+        width: auto;
+        filter: brightness(0) invert(1);
+      }
+
+      .phone-wrap {
+        position: absolute;
+        bottom: 355px;
+        right: -10px;
+        width: 120px;
+        height: auto;
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s var(--ease-out-expo) 0.75s forwards;
+      }
+
+      .phone-wrap__img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+      .content {
+        position: absolute;
+        top: 262px;
+        left: 0;
+        width: 160px;
+        padding: 0 16px;
+        z-index: 2;
+      }
+
+      .headline {
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--color-primary);
+        letter-spacing: -1px;
+        opacity: 0;
+        transform: translateY(14px);
+        animation: fadeInUp 0.55s var(--ease-out-expo) 0.9s forwards;
+      }
+
+      .headline__accent {
+        color: var(--color-accent);
+      }
+
+      .subheadline {
+        margin-top: 10px;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.45;
+        color: #3a3a5c;
+        word-break: break-word; /* prevents overflow in narrow column */
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s var(--ease-out-expo) 1.1s forwards;
+      }
+      .features {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        opacity: 0;
+        animation: fadeIn 0.5s ease 1.35s forwards;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Small coloured square icon badge */
+      .feature-item__icon {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        background: var(--color-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .feature-item__icon svg {
+        width: 11px;
+        height: 11px;
+      }
+
+      .feature-item__text {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--color-primary);
+        line-height: 1.2;
+      }
+
+      .divider {
+        margin: 16px 16px 0;
+        height: 1px;
+        background: var(--color-primary);
+        opacity: 0;
+        animation: fadeIn 0.4s ease 1.5s forwards;
+      }
+
+      .cta-wrap {
+        position: absolute; /* resolved against .banner */
+        bottom: 40px;
+        left: 16px;
+        right: 16px;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(12px);
+        animation:
+          fadeInUp 0.55s var(--ease-out-expo) 1.5s forwards,
+          ctaPulse 2s ease-in-out 2.8s infinite;
+      }
+
+      .cta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 100%;
+        background: var(--color-accent);
+        color: var(--color-white);
+        font-family: var(--font-primary);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 12px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        letter-spacing: 0.1px;
+        transition:
+          background-color 0.2s ease,
+          transform 0.15s ease;
+      }
+
+      /* Hover — required by brief. Cancels pulse. */
+      .click-area:hover .cta-btn {
+        background-color: var(--color-accent-dark);
+        transform: translateY(-2px);
+        animation: none;
+      }
+
+      .click-area:hover .cta-wrap {
+        opacity: 1;
+        transform: translateY(0);
+        animation: none;
+      }
+
+      .cta-btn__arrow {
+        font-size: 13px;
+        transition: transform 0.2s ease;
+      }
+
+      .click-area:hover .cta-btn__arrow {
+        transform: translateX(3px);
+      }
+
+      /* ============================================================
+       URL LABEL
+       ============================================================ */
+      .url-label {
+        position: absolute;
+        bottom: 12px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 8px;
+        color: var(--color-primary);
+        opacity: 0;
+        z-index: 2;
+        animation: fadeIn 0.4s ease 1.8s forwards;
+      }
+
+      .dots-grid {
+        position: absolute; /* resolved against .banner */
+        left: 14px;
+        top: 258px;
+        display: grid;
+        grid-template-columns: repeat(3, 5px);
+        gap: 5px;
+        opacity: 0;
+        z-index: 2;
+        animation: fadeIn 0.5s ease 1.2s forwards;
+      }
+
+      .dots-grid span {
+        display: block;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        opacity: 0.3;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes ctaPulse {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-2px) scale(1.02);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section
+      class="banner"
+      role="region"
+      aria-label="Publicidad: Novu – Start Fresh. Tu mejor año comienza hoy. Organiza tu día, alcanza metas y controla tus finanzas. Empieza gratis en novuapp.com"
+    >
+      <div class="hero-block" aria-hidden="true"></div>
+      <div class="hero-circle" aria-hidden="true"></div>
+      <div class="logo">
+        <img
+          class="logo__img"
+          src="../../shared/assets/novu-logo.png"
+          alt="Novu"
+        />
+      </div>
+      <div class="phone-wrap" aria-hidden="true">
+        <img
+          class="phone-wrap__img"
+          src="../../shared/assets/mockup-mobile.png"
+          alt=""
+        />
+      </div>
+
+      <!-- Dot accent (decorative) -->
+      <div class="dots-grid" aria-hidden="true">
+        <span></span><span></span><span></span> <span></span><span></span
+        ><span></span>
+      </div>
+
+      <!-- Copy + features -->
+      <div class="content">
+        <h2 class="headline">
+          Start<br /><span class="headline__accent">Fresh.</span>
+        </h2>
+        <p class="subheadline">Tu mejor año comienza hoy.</p>
+
+        <div class="features" aria-label="Características de Novu">
+          <div class="feature-item">
+            <div class="feature-item__icon" aria-hidden="true">
+              <!-- Calendar icon (inline SVG — no external request) -->
+              <svg
+                viewBox="0 0 11 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="2"
+                  width="9"
+                  height="8"
+                  rx="1.5"
+                  stroke="white"
+                  stroke-width="1.2"
+                />
+                <path
+                  d="M3.5 1v2M7.5 1v2M1 5h9"
+                  stroke="white"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <span class="feature-item__text">Organiza tu día</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-item__icon" aria-hidden="true">
+              <!-- Target / goal icon -->
+              <svg
+                viewBox="0 0 11 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="5.5"
+                  cy="5.5"
+                  r="4"
+                  stroke="white"
+                  stroke-width="1.2"
+                />
+                <circle
+                  cx="5.5"
+                  cy="5.5"
+                  r="1.8"
+                  stroke="white"
+                  stroke-width="1.2"
+                />
+              </svg>
+            </div>
+            <span class="feature-item__text">Alcanza tus metas</span>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-item__icon" aria-hidden="true">
+              <!-- Wallet icon -->
+              <svg
+                viewBox="0 0 11 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="3"
+                  width="9"
+                  height="6.5"
+                  rx="1.5"
+                  stroke="white"
+                  stroke-width="1.2"
+                />
+                <path d="M1 5.5h9" stroke="white" stroke-width="1.2" />
+                <circle cx="7.5" cy="7.5" r="0.8" fill="white" />
+              </svg>
+            </div>
+            <span class="feature-item__text">Controla tus finanzas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal rule -->
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- CTA -->
+      <div class="cta-wrap" aria-hidden="true">
+        <span class="cta-btn">
+          Empieza gratis
+          <span class="cta-btn__arrow">→</span>
+        </span>
+      </div>
+
+      <!-- URL -->
+      <span class="url-label" aria-hidden="true">novuapp.com</span>
+
+      <!-- Full-banner click target -->
+      <a
+        class="click-area"
+        href="https://novuapp.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Novu – Empieza gratis en novuapp.com"
+        onclick="
+          var url =
+            typeof clickTag !== 'undefined' && clickTag
+              ? clickTag
+              : 'https://novuapp.com';
+          window.open(url, '_blank');
+          return false;
+        "
+      ></a>
+    </section>
+
+    <script>
+      var clickTag = "https://novuapp.com";
+    </script>
+  </body>
+</html>

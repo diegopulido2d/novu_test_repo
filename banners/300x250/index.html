@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="ad.size" content="width=300,height=250" />
+    <title>Novu – Start Fresh | 300×250</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --color-primary: #1a1a2e;
+        --color-accent: #e94560;
+        --color-accent-dark: #c73652;
+        --color-bg: #f5f5f0;
+        --color-white: #ffffff;
+        --font-primary:
+          "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+        --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      html,
+      body {
+        width: 300px;
+        height: 250px;
+        overflow: hidden;
+        background: var(--color-bg);
+      }
+
+      .banner {
+        position: relative; /* ← containing block for all abs children */
+        width: 300px;
+        height: 250px;
+        overflow: hidden;
+        background-color: var(--color-bg);
+        font-family: var(--font-primary);
+        outline: 1px solid #d8d8d0; /* IAB: 1px border on light backgrounds */
+        cursor: pointer;
+      }
+
+      .click-area {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .bg-circle--large {
+        width: 260px;
+        height: 260px;
+        background: var(--color-primary);
+        right: -110px;
+        top: -60px;
+        animation: circleReveal 0.8s var(--ease-out-expo) 0.1s forwards;
+      }
+
+      .bg-circle--small {
+        width: 120px;
+        height: 120px;
+        background: var(--color-accent);
+        right: -20px;
+        top: 70px;
+        animation: circleReveal 0.8s var(--ease-out-expo) 0.25s forwards;
+      }
+
+      @keyframes circleReveal {
+        from {
+          opacity: 0;
+          transform: scale(0.7);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .bg-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 12px;
+        display: grid;
+        grid-template-columns: repeat(4, 6px);
+        gap: 6px;
+        opacity: 0;
+        animation: fadeIn 0.6s ease 1.2s forwards;
+        z-index: 1;
+      }
+
+      .bg-dots span {
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        opacity: 0.25;
+      }
+
+      .logo {
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(-8px);
+        animation: slideDown 0.5s var(--ease-out-expo) 0.5s forwards;
+      }
+
+      .logo__img {
+        display: block;
+        height: 70px; /* fixed height; width auto-scales with aspect ratio */
+        width: auto;
+      }
+
+      .content {
+        position: absolute;
+        left: 20px;
+        top: 62px;
+        width: 155px;
+        z-index: 2;
+      }
+
+      .headline {
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--color-primary);
+        letter-spacing: -1.5px;
+        opacity: 0;
+        transform: translateY(14px);
+        animation: slideUp 0.6s var(--ease-out-expo) 0.7s forwards;
+      }
+
+      .headline__accent {
+        color: var(--color-accent);
+      }
+
+      .subheadline {
+        margin-top: 8px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--color-primary);
+        opacity: 0;
+        transform: translateY(10px);
+        animation: slideUp 0.5s var(--ease-out-expo) 0.95s forwards;
+      }
+
+      .phone-wrap {
+        position: absolute; /* resolved against .banner */
+        right: -12px;
+        top: 10px;
+        width: 140px;
+        height: 220px;
+        z-index: 2;
+        opacity: 0;
+        transform: translateX(20px);
+        animation: slideLeft 0.7s var(--ease-out-expo) 0.85s forwards;
+      }
+
+      .phone-wrap__img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* preserve aspect ratio, no crop */
+        object-position: center top;
+      }
+
+      .cta-wrap {
+        position: absolute;
+        left: 20px;
+        bottom: 22px;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: slideUp 0.5s var(--ease-out-expo) 1.2s forwards;
+      }
+
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--color-accent);
+        color: var(--color-white);
+        font-family: var(--font-primary);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 10px 18px;
+        border-radius: 4px;
+        text-decoration: none;
+        letter-spacing: 0.1px;
+        /* Pulse draws attention once main frame is settled */
+        animation: ctaPulse 2s ease-in-out 2.5s infinite;
+        transition:
+          background-color 0.2s ease,
+          transform 0.15s ease;
+      }
+
+      /* Hover — required by brief. Also cancels the pulse. */
+      .click-area:hover .cta-btn {
+        background-color: var(--color-accent-dark);
+        transform: translateY(-1px);
+        animation: none;
+      }
+
+      .cta-btn__arrow {
+        font-size: 14px;
+        line-height: 1;
+        transition: transform 0.2s ease;
+      }
+
+      .click-area:hover .cta-btn__arrow {
+        transform: translateX(3px);
+      }
+
+      /* ============================================================
+       URL LABEL
+       ============================================================ */
+      .url-label {
+        position: absolute;
+        bottom: 26px;
+        right: 14px;
+        font-size: 9px;
+        color: var(--color-primary);
+        opacity: 0;
+        z-index: 2;
+        animation: fadeIn 0.5s ease 1.5s forwards;
+      }
+
+      /* ============================================================
+       KEYFRAMES
+       ============================================================ */
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideDown {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* slideLeft: phone enters from the right */
+      @keyframes slideLeft {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes ctaPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.04);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section
+      class="banner"
+      role="region"
+      aria-label="Publicidad: Novu – Start Fresh. Tu mejor año comienza hoy. Empieza gratis en novuapp.com"
+    >
+      <!-- Decorative shapes — purely visual, hidden from screen readers -->
+      <div class="bg-circle bg-circle--large" aria-hidden="true"></div>
+      <div class="bg-circle bg-circle--small" aria-hidden="true"></div>
+
+      <div class="bg-dots" aria-hidden="true">
+        <span></span><span></span><span></span><span></span> <span></span
+        ><span></span><span></span><span></span>
+      </div>
+
+      <div class="logo">
+        <img
+          class="logo__img"
+          src="../../shared/assets/novu-logo.png"
+          alt="Novu"
+        />
+      </div>
+
+      <!-- Copy -->
+      <div class="content">
+        <h2 class="headline">
+          Start&nbsp;<span class="headline__accent">Fresh.</span>
+        </h2>
+        <p class="subheadline">Tu mejor año comienza hoy.</p>
+      </div>
+
+      <div class="phone-wrap" aria-hidden="true">
+        <img
+          class="phone-wrap__img"
+          src="../../shared/assets/mockup-mobile.png"
+          alt=""
+        />
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap" aria-hidden="true">
+        <span class="cta-btn">
+          Empieza gratis
+          <span class="cta-btn__arrow">→</span>
+        </span>
+      </div>
+
+      <!-- URL label -->
+      <span class="url-label" aria-hidden="true">novuapp.com</span>
+
+      <a
+        class="click-area"
+        href="https://novuapp.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Novu – Empieza gratis en novuapp.com"
+        onclick="
+          var url =
+            typeof clickTag !== 'undefined' && clickTag
+              ? clickTag
+              : 'https://novuapp.com';
+          window.open(url, '_blank');
+          return false;
+        "
+      ></a>
+    </section>
+
+    <script>
+      var clickTag = "https://novuapp.com";
+    </script>
+  </body>
+</html>
